@@ -19,14 +19,14 @@ except ImportError:
     from .prod_settings import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ROOT_DIR = environ.Path(__file__) - 2
+BASE_DIR = os.path.dirname(os.path.realpath(os.path.dirname(__file__) + "/.."))
+ROOT_DIR = environ.Path(__file__) - 3
 
 env = environ.Env(
     DJANGO_DEBUG=(bool, False),
     DJANGO_SECRET_KEY=(str, 'CHANGEME!!!e8!1671ifpp362f9gbd3v@e($0_flznbb3fa2d4zg7zn@%yyk2'),
     DJANGO_ALLOWED_HOSTS=(list, []),
-    DJANGO_STATIC_ROOT=(str, str(ROOT_DIR('staticfiles'))),
+    DJANGO_STATIC_ROOT=(str, str(ROOT_DIR('static'))),
     DJANGO_MEDIA_ROOT=(str, str(ROOT_DIR('media'))),
 )
 
@@ -83,7 +83,7 @@ ROOT_URLCONF = 'django_vuejs_chat.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
+        'DIRS': [os.path.join(BASE_DIR, '../../templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -142,6 +142,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+SITE_ID = 1
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
@@ -152,7 +153,7 @@ STATIC_ROOT = env('DJANGO_STATIC_ROOT')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = env('DJANGO_MEDIA_ROOT')
 
-STATIC_DIR = os.path.join(BASE_DIR, 'static')
+STATIC_DIR = os.path.join(BASE_DIR, '../../static')
 STATICFILES_DIRS = [
 
 ]
