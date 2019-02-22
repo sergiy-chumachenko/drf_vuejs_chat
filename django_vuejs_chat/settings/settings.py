@@ -161,8 +161,9 @@ STATICFILES_DIRS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAdminUser',
-        'rest_framework.permissions.AllowAny'
+        'rest_framework.permissions.AllowAny',
+        # 'rest_framework.permissions.IsAdminUser',
+
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework_json_api.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,

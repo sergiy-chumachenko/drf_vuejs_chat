@@ -2,8 +2,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import permissions
 
-from chat_room.serializers import RoomSerializer
-from chat_room.models import Room
+from chat_room.serializers import (RoomSerializer, ChatSerializer, ChatPostSerializer)
+from chat_room.models import Room, Chat
 
 
 class Rooms(APIView):
@@ -14,3 +14,22 @@ class Rooms(APIView):
         return Response({'data': serializer.data})
 
 
+class Dialog(APIView):
+    # Dialog
+    permission_classes = [permissions.IsAuthenticated, ]
+    # permission_classes = [permissions.AllowAny, ]
+
+    def get(self, request):
+        room = request.GET.get('room')
+        chat = Chat.objects.filter(room=room)
+        serializer = ChatSerializer(chat, many=True)
+        return Response({'data': serializer.data})
+
+    def post(self, request):
+        # room = request.GET.get('room')
+        dialog = ChatPostSerializer(data=request.data)
+        if dialog.is_valid():
+            dialog.save(user=request.user)
+            return Response({'status': "Add"})
+        else:
+            return Response({'status': "Error"})
