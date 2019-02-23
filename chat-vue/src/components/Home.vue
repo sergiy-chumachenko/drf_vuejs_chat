@@ -1,12 +1,16 @@
 <template>
-    <div>
-        <h1>Vue.js Chat</h1>
-        <button v-if="!auth" @click="goLogin">Enter</button>
-        <button v-else @click="logout">Logout</button>
-
-        <Room v-if="auth" @openDialog="openDialog"></Room>
-        <Dialog v-if="dialog.show"  :id="dialog.id"></Dialog>
-    </div>
+    <mu-container>
+        <mu-appbar style="width: 100%;" color="primary">
+            Vue.js Chat
+            <mu-button flat slot="right" v-if="!auth" @click="goLogin">LOGIN</mu-button>
+            <mu-button flat slot="right" v-else @click="logout">LOGOUT</mu-button>
+        </mu-appbar>
+        <mu-row><h1></h1></mu-row>
+        <mu-row>
+            <Room v-if="auth" @openDialog="openDialog"></Room>
+            <Dialog v-if="dialog.show" :id="dialog.id"></Dialog>
+        </mu-row>
+    </mu-container>
 </template>
 
 <script>
@@ -21,7 +25,7 @@
         },
         data() {
             return {
-                dialog:{
+                dialog: {
                     id: '',
                     show: false
                 }
