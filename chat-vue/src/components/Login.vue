@@ -28,6 +28,7 @@
                     success: (response) => {
                         alert("Thank you!");
                         sessionStorage.setItem("auth_token", response.data.attributes.auth_token);
+                        this.$router.push({name: 'home'});
                     },
                     error: (response) => {
                         if (response.status === 400) {
