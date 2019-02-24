@@ -10,6 +10,9 @@ class Room(models.Model):
     invited = models.ManyToManyField(User, verbose_name="Participants", related_name="invited_user")
     date = models.DateTimeField("Creation date", auto_now_add=True)
 
+    def get_invited_users(self):
+        return self.invited.all()
+
     class Meta:
         verbose_name = "Chat Room"
         verbose_name_plural = "Chat Rooms"
