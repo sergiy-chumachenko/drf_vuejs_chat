@@ -30,6 +30,6 @@ class Dialog(APIView):
         dialog = ChatPostSerializer(data=request.data)
         if dialog.is_valid():
             dialog.save(user=request.user)
-            return Response({'status': "Add"})
+            return Response(status=201)
         else:
-            return Response({'status': "Error"})
+            return Response(status=400)
